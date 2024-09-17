@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ATL SALES APP | LOG IN</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/ico" href="dist/img/favicon.ico"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+ 
+</head>
+<body class="hold-transition login-page accent-danger">
+<div class="login-box">
+  <div class="login-logo">
+    <img src="dist/img/atllogo.png" width="400px">
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg"><strong>SALES APP LOGIN</strong></p>
+
+      <form id="loginForm" method="post">
+        <div class="input-group mb-3">
+          <input type="text"  class="form-control" id="txtUserName2" placeholder="Username" required autofocus autocomplete="new-password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password"  class="form-control" id="txtPassword" placeholder="Password" required autocomplete="new-password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-key"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+           
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-danger btn-block" id="btnLogin">Login</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script>
+$( "#btnLogin" ).click(function(e) {
+  e.preventDefault();
+  $("#btnLogin").attr("disabled","disabled");
+  theData={
+    "do" : "authenticate",
+    "uname" : $("#txtUserName2").val().trim(),
+    "password" : $("#txtPassword").val().trim(),
+  }
+  $.ajax({
+    url:"BO/common.php",
+    data:theData,
+    success: function(response)
+    {
+      if(response=="YES")
+        window.location.href="dashboard.php";
+      else
+        swal("","Incorrect Username or Password","error").then(function(){$("#btnLogin").removeAttr("disabled");$("#txtUserName2").focus();});  
+    }
+  })
+});
+</script>
+</script>
+</body>
+</html>
